@@ -15,3 +15,4 @@ class Category(SqlAlchemyBase, UserMixin, SerializerMixin):
     flow = sa.Column(sa.Integer, sa.ForeignKey('flows.id'))
     category_flow = orm.relation('Flow')
     article_category = orm.relation('ArticleCategory', back_populates='category1')
+    sub_category = orm.relation('SubCategory', back_populates='category1')

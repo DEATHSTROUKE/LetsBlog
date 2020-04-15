@@ -26,7 +26,6 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     is_author = sa.Column(sa.Boolean, default=False)
     article = orm.relation('Article', back_populates='user')
     comment = orm.relation('Comment', back_populates='user')
-    sub_person = orm.relation('SubPerson', back_populates='user1')
     sub_category = orm.relation('SubCategory', back_populates='user1')
     user_bookmarks = orm.relation('UserBookmark', back_populates='user1')
 

@@ -10,28 +10,34 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates:400,600,700|Montserrat:400,600,700&display=swap&subset=cyrillic,cyrillic-ext"
           rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
-    <link rel="stylesheet" href="../static/css/signin.css">
+    <link rel="stylesheet" href="/static/css/signin.css">
     <title>Вход</title>
 </head>
 <body>
 <div class="wrapper">
     <div class="form">
-        <img src="../static/img/logo@2x.png" alt="" class="form__img">
+        <img src="/static/img/logo@2x.png" alt="" class="form__img">
         <div class="form__title">
             Вход
         </div>
-        <form action="" class="form__form">
+        <form class="form__form" method="post" novalidate>
+            {{ form.hidden_tag() }}
+
             <div class="form__input">
-                <label for="email" class="form__label">E-mail</label>
-                <input type="email" class="input__text" name="email">
+                <label for="email" class="form__label">Email</label>
+                {{ form.email(class="input__text", type="email") }}
             </div>
             <div class="form__input">
                 <label for="password" class="form__label">Пароль</label>
-                <input type="password" class="input__text" name="password">
+                {{ form.password(class="input__text", type="password") }}
             </div>
+            <div>
+                {{ form.remember_me() }} {{ form.remember_me.label }}
+            </div>
+            <div>{{ message }}</div>
             <div class="form__btns">
-                <button class="form__btn">Войти</button>
-                <a href="#" class="form__forget form__link">Забыли пароль?</a>
+                {{ form.submit(type="submit", class="form__btn") }}
+                <!--<a href="#" class="form__forget form__link">Забыли пароль?</a>-->
             </div>
         </form>
     </div>

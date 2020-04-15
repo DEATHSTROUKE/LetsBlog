@@ -18,27 +18,30 @@
     <div class="form">
         <img src="static/img/logo@2x.png" alt="" class="form__img">
         <div class="form__title">
-            Вход
+            Регистрация
         </div>
-        <form action="" class="form__form">
+        <form action="" class="form__form" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
             <div class="form__input">
-                <label for="email" class="form__label">E-mail</label>
-                <input type="email" class="input__text" name="email">
+                <label for="email" class="form__label">Email</label>
+                {{ form.email(class="input__text", type="email") }}
             </div>
             <div class="form__input">
-                <label for="nick" class="form__label">Никнеме</label>
-                <input type="text" class="input__text" name="nick">
+                <label for="nick" class="form__label">Никнейм</label>
+                {{ form.nick(class="input__text", type="text") }}
             </div>
             <div class="form__input">
                 <label for="password" class="form__label">Пароль</label>
-                <input type="password" class="input__text" name="password">
+                {{ form.password(class="input__text", type="password") }}
             </div>
             <div class="form__input">
                 <label for="password1" class="form__label">Пароль еще раз</label>
-                <input type="password" class="input__text" name="password1">
+                {{ form.password2(class="input__text", type="password") }}
             </div>
+            {{ message }}
             <div class="form__btns">
-                <button class="form__btn">Зарегистрироваться</button>
+                {{ form.submit(type="submit", class="form__btn") }}
             </div>
         </form>
     </div>

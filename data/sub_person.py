@@ -11,6 +11,5 @@ class SubPerson(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'sub_person'
     id = sa.Column(sa.Integer,
                    primary_key=True, autoincrement=True)
-    author = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
-    user = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
-    user1 = orm.relation('User')
+    author = sa.Column(sa.Integer)
+    user = sa.Column(sa.Integer)
