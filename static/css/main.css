@@ -109,7 +109,7 @@ body {
 }
 
 .nav-block {
-    padding: 15px 0;
+    /*padding: 15px 0;*/
     background: #fff;
     position: -webkit-sticky;
     position: sticky;
@@ -153,6 +153,7 @@ body {
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
+    align-items: center;
 }
 
 .nav__icon {
@@ -174,30 +175,69 @@ body {
 }
 
 .nav__item {
+    padding: 15px 25px 15px 25px;
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 2px;
-    padding-right: 50px;
     -webkit-transition: all .2s ease;
     -o-transition: all .2s ease;
     transition: all .2s ease;
     color: #3d3d3d;
+    position: relative;
 }
 
 .nav__item a {
     color: #3d3d3d;
 }
 
-.nav__item a:hover {
+.nav__item:hover a {
     color: #B38D51;
     -webkit-transition: all .2s ease;
     -o-transition: all .2s ease;
-    transition: all .2s ease;
 }
 
 .nav__item.active a {
     color: #B38D51;
+}
+
+
+.nav__item:hover .nav__tick {
+    color: #B38D51;
+}
+
+.nav__item:hover .submenu {
+    visibility: visible;
+    transition: .6s ease-in-out;
+    opacity: 1;
+    transform: perspective(600px) rotateX(0deg);
+}
+
+.submenu {
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 10px 20px 20px 20px;
+    border: 1px solid #E1E1E1;
+    visibility: hidden;
+    opacity: 0;
+    transform: perspective(600px) rotateX(-90deg);
+    transform-origin: 0 0;
+    /*transition: .6s ease-in-out;*/
+}
+
+.submenu a {
+    padding: 20px 0 0 0;
+    color: black !important;
+    transition: .6s ease-in-out;
+}
+
+.submenu a:hover {
+    color: #B38D51 !important;
 }
 
 .nav__tick {
@@ -210,7 +250,7 @@ body {
     -ms-flex-item-align: center;
     align-self: center;
     width: 40px;
-    height: 200%;
+    height: 90%;
     background: url("../img/articles/art2.jpg") no-repeat;
     border-radius: 100%;
 }
@@ -218,6 +258,7 @@ body {
 .nav__img {
     width: 30px;
 }
+
 
 .main {
     -webkit-box-flex: 1;

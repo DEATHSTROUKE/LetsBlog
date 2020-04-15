@@ -19,7 +19,7 @@
         <div class="container">
             <div class="header__intro">
                 <div class="header__logo">
-                    <img src="../static/img/logo@2x.png" alt="logo" class="header__intro__logo">
+                    <a href=""><img src="../static/img/logo@2x.png" alt="logo" class="header__intro__logo"></a>
                 </div>
                 <!--                <div class="header__btns">-->
                 <!--                    <i class="fa fa-search"></i>-->
@@ -37,8 +37,15 @@
                         <a href="#">Моя лента</a>
                     </div>
                     <div class="nav__item">
-                        <a href="#">Потоки</a>
-                        <i class="fa fa-chevron-down nav__tick"></i>
+                        <div class="item__down">
+                            <a href="#">Все потоки</a>
+                            <i class="fa fa-chevron-down nav__tick"></i>
+                        </div>
+                        <div class="submenu">
+                            <a href="#">Программирование</a>
+                            <a href="#">Дизайн</a>
+                            <a href="#">Администрирование</a>
+                        </div>
                     </div>
                     <div class="nav__item">
                         <a href="#">Категории</a>
@@ -59,6 +66,8 @@
         </div>
     </nav>
     <main class="main">
+        {% block content %}
+        {% endblock %}
     </main>
     <footer class="footer">
         <div class="container">
@@ -116,5 +125,11 @@
         </div>
     </footer>
 </div>
+<script>
+    window.addEventListener('load', function () {
+        var menu = document.querySelector('.submenu');
+        menu.style.transition = '.6s ease-in-out';
+    });
+</script>
 </body>
 </html>

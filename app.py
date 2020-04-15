@@ -128,14 +128,18 @@ def login():
 # @app.route('/flow/<int:num>')
 # def flow(num):
 #     pass
-#
-#
-# @app.route('/write')
-# @login_required
-# def write():
-#     pass
-#
-#
+
+
+@app.route('/write', methods=['GET', 'POST'])
+@login_required
+def write():
+    if request.method == 'GET':
+        return render_template('write.html')
+    elif request.method == 'POST':
+        print(request.args['tinymce'])
+        return redirect('/')
+
+
 # @app.route('/edit/<int:num>')
 # @login_required
 # def edit(num):
