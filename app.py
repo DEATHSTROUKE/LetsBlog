@@ -62,13 +62,13 @@ def login():
 # @login_required
 # def feed():
 #     pass
-#
-#
-# @app.route('/users/<nick>')
-# def profile(nick):
-#     pass
-#
-#
+
+
+@app.route('/users/<nick>')
+def profile(nick):
+    return render_template('profile.html')
+
+
 # @app.route('/users/<nick>/public')
 # def prof_public(nick):
 #     pass
