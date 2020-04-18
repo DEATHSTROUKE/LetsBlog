@@ -72,12 +72,12 @@
 .article__tag a {
     color: #3d3d3d;
     font-size: 14px;
-    transition: all .2s linear;
+    transition: all .2s ease;
 }
 
 .article__tag a:hover {
     color: #B38D51;
-    transition: all .2s linear;
+    transition: all .2s ease;
 }
 
 .article__img {
@@ -101,11 +101,12 @@
     border: 1px solid #B38D51;
     padding: 15px 20px;
     border-radius: 20px;
-    transition: all .2s linear;
+    transition: all .2s ease;
     width: max-content;
 }
 
 .article__link {
+    transition: all .2s ease;
     color: #B38D51;
     font-weight: 700;
     font-size: 16px;
@@ -113,12 +114,12 @@
 
 .article__btn:hover {
     border: 1px solid #000;
-    transition: all .2s linear;
+    transition: all .2s ease;
 }
 
 .article__btn:hover .article__link {
     color: #000;
-    transition: all .2s linear;
+    transition: all .2s ease;
 }
 
 .article__info {
@@ -184,13 +185,13 @@
 
 .stats__item a {
     color: #b1b1b1;
-    transition: all .2s linear;
+    transition: all .2s ease;
 }
 
 
 .stats__item a:hover {
     color: #B38D51;
-    transition: all .2s linear;
+    transition: all .2s ease;
 }
 
 /*##### Sidebar #####*/
@@ -240,12 +241,12 @@
 }
 
 .sb__label a {
-    transition: all .2s linear;
+    transition: all .2s ease;
 }
 
 .sb__label a:hover {
     color: #000;
-    transition: all .2s linear;
+    transition: all .2s ease;
 }
 
 .sb__value {
