@@ -69,16 +69,16 @@ def profile(nick):
     return render_template('profile.html')
 
 
-# @app.route('/users/<nick>/public')
-# def prof_public(nick):
-#     pass
-#
-#
-# @app.route('/users/<nick>/bookmarks')
-# def prof_bookmarks(nick):
-#     pass
-#
-#
+@app.route('/users/<nick>/public')
+def prof_public(nick):
+    return render_template('profile_public.html')
+
+
+@app.route('/users/<nick>/bookmarks')
+def prof_bookmarks(nick):
+    return render_template('profile_bookmarks.html')
+
+
 # @app.route('/users/<nick>/subscribers')
 # def prof_subs(nick):
 #     pass

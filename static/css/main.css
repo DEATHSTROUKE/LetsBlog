@@ -10,7 +10,7 @@
     font-size: 24px;
     color: #6F7577;
     letter-spacing: 0.5px;
-    padding: 20px 0 30px 0;
+    padding: 20px 0 40px 0;
 }
 
 .article-column {
@@ -48,7 +48,7 @@
 .article__title {
     font-weight: 500;
     font-size: 22px;
-    padding: 20px 0;
+    padding: 15px 0;
 }
 
 .article__title a {
@@ -142,11 +142,12 @@
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
+    font-size: 16px;
 }
 
 .author__avatar {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background: url("../img/articles/art2.jpg") no-repeat;
     border-radius: 100%;
 }
@@ -158,6 +159,8 @@
 .article__date {
     color: #6F7577;
     font-style: italic;
+    font-size: 16px;
+
 }
 
 .article__stats {
