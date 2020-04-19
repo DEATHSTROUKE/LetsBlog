@@ -92,14 +92,34 @@ def prof_bookmarks(nick):
 # @app.route('/users/<nick>/rate')
 # def prof_rate(nick):
 #     pass
-#
-#
-# @app.route('/settings')
-# @login_required
-# def prof_settings():
-#     pass
-#
-#
+
+
+@app.route('/settings', methods=['GET', 'POST'])
+@login_required
+def prof_settings():
+    session = create_session()
+    if request.method == 'GET':
+        return render_template('settings.html')
+    elif request.method == 'POST':
+        print(request.form['surname'])
+        print(request.files)
+        if request.files['avatar']:
+            ava = request.files['avatar']
+            rassh = ava.filename.split('.')[-1]
+            ava.save(f'./static/img/avatars/{current_user.id}.{rassh}')
+        else:
+            pass
+        current_user.update({
+            'surname': request.form['surname'],
+            'name': request.form['name'],
+            'nick': request.form['nick'],
+            'surname': request.form['surname'],
+
+        })
+        session.co
+        return redirect(f'/users/{current_user.nick}')
+
+
 # @app.route('/article/<int:num>')
 # def article(num):
 #     pass
@@ -133,8 +153,10 @@ def prof_bookmarks(nick):
 @app.route('/write', methods=['GET', 'POST'])
 @login_required
 def write():
+    session = create_session()
     if request.method == 'GET':
-        return render_template('write.html')
+        flows = session.query(Flow).all()
+        return render_template('write.html', flows=flows)
     elif request.method == 'POST':
         print(request.args['tinymce'])
         return redirect('/')

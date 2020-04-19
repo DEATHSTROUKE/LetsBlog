@@ -7,17 +7,15 @@
         </div>
         <form action="" method="post">
             <div class="inputs">
-                <input type="text" class="inp" name="title" placeholder="Заголовок">
-                <input type="text" class="inp" name="preview" placeholder="Ссылка на превью (картинка)">
-                <select name="flow" class="inp">
-                    {% for i in flows %}
-                        <option value="{{ i.id }}">{{ i.title }}</option>
-                    {% endfor %}
+                <input type="text" class="inp" placeholder="Заголовок">
+                <input type="text" class="inp" placeholder="Ссылка на превью (картинка)">
+                <select name="" class="inp">
+                    <option value="">Администрирование</option>
+                    <option value="">Программирование</option>
                 </select>
-                <textarea name="category" class="inp"
-                          placeholder="Введите категории для статьи (через запятую)"></textarea>
+                <textarea name="" class="inp" placeholder="Введите категории для статьи (через запятую)"></textarea>
                 <textarea name="tinymce" style="min-height: 400px"></textarea>
-                <input type="text" class="inp" name="tags" placeholder="Ключевые слова для поиска статьи">
+                <input type="text" class="inp" placeholder="Ключевые слова для поиска статьи">
                 <button type="submit" class="btn">Опубликовать</button>
             </div>
         </form>

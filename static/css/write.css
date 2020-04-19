@@ -1,0 +1,35 @@
+.inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.inp {
+    padding: 10px;
+    font-size: 16px;
+    margin: 20px 0;
+    resize: none;
+}
+
+.btn {
+    width: 25%;
+    padding: 15px;
+    background: none;
+    border: 1px solid #B38D51;
+    color: #B38D51;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+textarea[name='tinymce'] {
+    resize: vertical;
+}
+
+.page__title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #6F7577;
+    letter-spacing: 0.5px;
+    padding: 20px 0 20px 0;
+}
+

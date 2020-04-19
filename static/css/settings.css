@@ -1,0 +1,35 @@
+.inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea {
+    padding: 10px;
+    font-size: 16px;
+    margin: 20px 0;
+    resize: none;
+}
+
+textarea {
+    resize: none;
+}
+
+.btn {
+    width: 25%;
+    padding: 15px;
+    background: none;
+    color: #B38D51;
+    border: 1px solid #B38D51;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.page__title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #6F7577;
+    letter-spacing: 0.5px;
+    padding: 20px 0 20px 0;
+}
+
