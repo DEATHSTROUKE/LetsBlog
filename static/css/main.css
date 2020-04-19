@@ -213,6 +213,7 @@
     background: #f5f5f5;
     padding: 20px;
     margin: 0 0 30px 0;
+    border-radius: 10px;
 }
 
 .sb__title {
@@ -260,3 +261,82 @@
     padding: 0 0 0 40px;
     color: #4cb737;
 }
+
+/* ##### Most readable #####*/
+
+.block__title {
+    text-transform: uppercase;
+    color: #3d3d3d;
+    padding: 0 0 10px 0;
+}
+
+.art__column {
+}
+
+.art__watch {
+    color: #4cb737;
+}
+
+.art__watch i {
+    color: #b1b1b1;
+    padding: 5px;
+}
+
+.art__row {
+    padding: 10px 0;
+    border-bottom: 0.5px solid #e1e1e1;
+}
+
+
+.art__row:last-child {
+    border-bottom: none;
+}
+
+.art__title {
+    padding: 5px;
+}
+
+.art__title a {
+    color: #3d3d3d;
+    font-weight: 600;
+    transition: all .2s ease;
+    font-size: 15px;
+}
+
+.art__title a:hover {
+    color: #B38D51;
+    transition: all .2s ease;
+}
+
+/*##### Pagination #####*/
+
+.paginate {
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.pag__numbers {
+}
+
+.pag__num {
+    padding: 10px 15px;
+    border: 1px solid #6F7577;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #6F7577;
+    font-weight: 600;
+    transition: all .2s ease;
+}
+
+.pag__num:hover {
+    background: #B38D51;
+    color: white;
+    border: 1px solid #B38D51;
+    transition: all .2s ease;
+}
+
+.pag__active {
+    color: #B38D51;
+    border: 1px solid #B38D51;
+}
+
