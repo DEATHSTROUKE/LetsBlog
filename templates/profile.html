@@ -7,25 +7,27 @@
             <div class="profile__main">
                 <div class="profile__row">
                     <div class="avatar">
-                        <img src="/static/img/articles/art2.jpg" alt="" class="avatar__img">
+                        <img src="/static/img/avatars/{{ user.avatar }}" alt="" class="avatar__img">
                     </div>
                     <div class="counters">
-                        <div class="counter">
-                            <div class="count count__green">
-                                300
+                        {% if user.is_author %}
+                            <div class="counter">
+                                <div class="count count__green">
+                                    300
+                                </div>
+                                <div class="counter__title">
+                                    Рейтинг
+                                </div>
                             </div>
-                            <div class="counter__title">
-                                Рейтинг
+                            <div class="counter">
+                                <div class="count count__red">
+                                    200
+                                </div>
+                                <div class="counter__title">
+                                    Подписчики
+                                </div>
                             </div>
-                        </div>
-                        <div class="counter">
-                            <div class="count count__red">
-                                200
-                            </div>
-                            <div class="counter__title">
-                                Подписчики
-                            </div>
-                        </div>
+                        {% endif %}
                         <div class="counter">
                             <div class="count count__blue">
                                 20
@@ -38,30 +40,32 @@
                 </div>
                 <div class="names">
                     <div class="name">
-                        Макс Максимов
+                        {{ user.name }} {{ user.surname }}
                     </div>
                     <div class="nick">
-                        @best_chel
+                        @{{ user.nick }}
                     </div>
                 </div>
                 <div class="profile__block">
                     <div class="profile__column">
                         <div class="slider">
                             <div class="slider__item">
-                                <a href="#" class="slider__link link__active">Профиль</a>
+                                <a href="/users/{{ current_user.nick }}" class="slider__link link__active">Профиль</a>
                             </div>
+                            {% if user.is_author %}
+                                <div class="slider__item">
+                                    <a href="/users/{{ current_user.nick }}/public" class="slider__link">Публикации</a>
+                                </div>
+                            {% endif %}
                             <div class="slider__item">
-                                <a href="#" class="slider__link">Публикации</a>
-                            </div>
-                            <div class="slider__item">
-                                <a href="#" class="slider__link">Закладки</a>
+                                <a href="/users/{{ current_user.nick }}/bookmarks" class="slider__link">Закладки</a>
                             </div>
                         </div>
                         <div class="about">
                             <div class="about__title">
                                 О себе
                             </div>
-                            <div class="about__text">Немного нервный</div>
+                            <div class="about__text">{{ user.info }}</div>
                         </div>
                     </div>
                     <div class="info">
@@ -70,36 +74,42 @@
                                 Информация
                             </div>
                             <div class="info__block">
-                                <div class="info__row">
-                                    <div class="info__label">
-                                        В рейтинге
+                                {% if user.is_author %}
+                                    <div class="info__row">
+                                        <div class="info__label">
+                                            В рейтинге
+                                        </div>
+                                        <div class="info__value">
+                                            2
+                                        </div>
                                     </div>
-                                    <div class="info__value">
-                                        2
+                                {% endif %}
+                                {% if user.date_born %}
+                                    <div class="info__row">
+                                        <div class="info__label">
+                                            Дата рождения
+                                        </div>
+                                        <div class="info__value">
+                                            {{ user.beauty_date(user.date_born) }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="info__row">
-                                    <div class="info__label">
-                                        Дата рождения
+                                {% endif %}
+                                {% if user.work %}
+                                    <div class="info__row">
+                                        <div class="info__label">
+                                            Работает в
+                                        </div>
+                                        <div class="info__value">
+                                            {{ user.work }}
+                                        </div>
                                     </div>
-                                    <div class="info__value">
-                                        24.03.2003
-                                    </div>
-                                </div>
-                                <div class="info__row">
-                                    <div class="info__label">
-                                        Работает в
-                                    </div>
-                                    <div class="info__value">
-                                        Mail.ru Group
-                                    </div>
-                                </div>
+                                {% endif %}
                                 <div class="info__row">
                                     <div class="info__label">
                                         Зарегистрирован
                                     </div>
                                     <div class="info__value">
-                                        02.03.2014
+                                        {{ user.beauty_date(user.date_register) }}
                                     </div>
                                 </div>
                             </div>

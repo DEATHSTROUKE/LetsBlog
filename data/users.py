@@ -16,11 +16,10 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     nick = sa.Column(sa.String)
     email = sa.Column(sa.String, unique=True)
     hashed_password = sa.Column(sa.String)
-    modified_date = sa.Column(sa.DateTime, default=datetime.now)
     info = sa.Column(sa.String)
     avatar = sa.Column(sa.String)
     rate = sa.Column(sa.Integer)
-    date_born = sa.Column(sa.DateTime)
+    date_born = sa.Column(sa.Date)
     date_register = sa.Column(sa.DateTime, default=datetime.now)
     work = sa.Column(sa.String)
     is_author = sa.Column(sa.Boolean, default=False)
@@ -37,3 +36,15 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)
+
+    def beauty_date(self, date):
+        date = str(date).split()
+        if len(date) == 2:
+            d = date[0].split('-')
+            t = date[1].split(':')
+            a = f'{d[2]}.{d[1]}.{d[0]}, {t[0]}:{t[1]}'
+            return a
+        else:
+            d = date[0].split('-')
+            a = f'{d[2]}.{d[1]}.{d[0]}'
+            return a

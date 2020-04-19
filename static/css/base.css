@@ -140,6 +140,10 @@ body {
     align-self: center;
 }
 
+.nav__item:first-child {
+    padding-left: 0;
+}
+
 .nav__icons {
     display: -webkit-box;
     display: -webkit-flex;
@@ -169,6 +173,33 @@ body {
     -o-transition: all .2s ease;
     transition: all .2s ease;
 }
+
+.btns {
+    display: flex;
+}
+
+.btn__sign {
+    display: flex;
+    padding: 0 10px;
+    align-items: center;
+
+}
+
+.btn__sign a {
+    display: block;
+    border-left: 1px solid #B38D51;
+    border-right: 1px solid #B38D51;
+    padding: 10px 15px;
+    border-radius: 20px;
+    transition: all .2s ease;
+}
+
+.btn__sign a:hover {
+    background: #B38D51;
+    color: white;
+    transition: all .2s ease;
+}
+
 
 .nav__item {
     padding: 15px 25px 15px 25px;
@@ -299,6 +330,10 @@ body {
 .sm__items {
     padding: 20px 20px 20px 20px;
     border-bottom: 1px solid #e1e1e1;
+}
+
+.sm__items:last-child {
+    border: none;
 }
 
 .sm__items a {

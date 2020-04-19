@@ -21,7 +21,7 @@
         <div class="container">
             <div class="header__intro">
                 <div class="header__logo">
-                    <a href=""><img src="/static/img/logo@2x.png" alt="logo" class="header__intro__logo"></a>
+                    <a href="/"><img src="/static/img/logo@2x.png" alt="logo" class="header__intro__logo"></a>
                 </div>
                 <!--                <div class="header__btns">-->
                 <!--                    <i class="fa fa-search"></i>-->
@@ -35,62 +35,75 @@
         <div class="container">
             <div class="nav">
                 <div class="nav__text">
-                    <div class="nav__item active">
-                        <a href="#">Моя лента</a>
-                    </div>
+                    {% if current_user.is_authenticated %}
+                        <div class="nav__item active">
+                            <a href="/feed">Моя лента</a>
+                        </div>
+                    {% endif %}
                     <div class="nav__item">
                         <div class="item__down">
-                            <a href="#">Все потоки</a>
+                            <a href="/">Все потоки</a>
                             <i class="fa fa-chevron-down nav__tick"></i>
                         </div>
                         <div class="submenu">
-                            <a href="#">Программирование</a>
-                            <a href="#">Дизайн</a>
-                            <a href="#">Администрирование</a>
+                            {% for i in flows %}
+                                <a href="/flow/{{ i.id }}">{{ i.title }}</a>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="nav__item">
-                        <a href="#">Категории</a>
+                        <a href="/category">Категории</a>
                     </div>
                     <div class="nav__item">
-                        <a href="#">Авторы</a>
+                        <a href="/users">Авторы</a>
                     </div>
                 </div>
-                <div class="nav__icons">
-                    <div class="nav__icon"><a href="#"><i class="fa fa-search"></i></a></div>
-                    <div class="nav__icon"><a href="#"><i class="fa fa-pen"></i></a></div>
-                    <div class="nav__profile">
-                        <!--                        <img src="static/img/articles/art2.jpg" alt="" class="nav__img">-->
-                        <div class="profile__sm">
-                            <div class="sm__items">
-                                <a href="#">
-                                    <div class="sm__item">
-                                        AnJey
-                                    </div>
-                                    <div class="sm__item">
-                                        профиль
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="sm__item">Публикации</div>
-                                </a>
-                                <a href="#">
-                                    <div class="sm__item">Закладки</div>
-                                </a>
-                            </div>
-                            <div class="sm__items">
-                                <a href="#">
-                                    <div class="sm__item"><i class="fa fa-cog fa-spin"></i></div>
-                                    <div class="sm__item">Настройки</div>
-                                </a>
-                                <a href="#">
-                                    <div class="sm__item"><i class="fa fa-sign-out-alt"></i></div>
-                                    <div class="sm__item">Выйти</div>
-                                </a>
+                {% if current_user.is_authenticated %}
+                    <div class="nav__icons">
+                        <div class="nav__icon"><a href="#"><i class="fa fa-search"></i></a></div>
+                        <div class="nav__icon"><a href="/write"><i class="fa fa-pen"></i></a></div>
+                        <div class="nav__profile">
+                            <!--                        <img src="static/img/articles/art2.jpg" alt="" class="nav__img">-->
+                            <div class="profile__sm">
+                                <div class="sm__items">
+                                    <a href="/users/{{ current_user.nick }}">
+                                        <div class="sm__item">
+                                            {{ current_user.nick }}
+                                        </div>
+                                        <div class="sm__item">
+                                            профиль
+                                        </div>
+                                    </a>
+                                    <a href="/users/{{ current_user.nick }}/public">
+                                        <div class="sm__item">Публикации</div>
+                                    </a>
+                                    <a href="/users/{{ current_user.nick }}/bookmarks">
+                                        <div class="sm__item">Закладки</div>
+                                    </a>
+                                </div>
+                                <div class="sm__items">
+                                    <a href="/settings">
+                                        <div class="sm__item"><i class="fa fa-cog fa-spin"></i></div>
+                                        <div class="sm__item">Настройки</div>
+                                    </a>
+                                    <a href="/logout">
+                                        <div class="sm__item"><i class="fa fa-sign-out-alt"></i></div>
+                                        <div class="sm__item">Выход</div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% else %}
+                    <div class="btns">
+                        <div class="btn__sign">
+                            <a href="/login">Войти</a>
+                        </div>
+                        <div class="btn__sign">
+                            <a href="/register">Регистрация</a>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -109,8 +122,12 @@
                         Ваш аккаунт
                     </div>
                     <div class="footer__links">
-                        <a href="#" class="footer__link">Войти</a>
-                        <a href="#" class="footer__link">Регистрация</a>
+                        {% if current_user.is_authenticated %}
+                            <a href="/users/{{ current_user.nick }}" class="footer__link">Профиль</a>
+                        {% else %}
+                            <a href="/login" class="footer__link">Войти</a>
+                            <a href="/register" class="footer__link">Регистрация</a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="footer__column">
@@ -118,11 +135,10 @@
                         Разделы
                     </div>
                     <div class="footer__links">
-                        <a href="#" class="footer__link">Публикации</a>
-                        <a href="#" class="footer__link">Новости</a>
-                        <a href="#" class="footer__link">Потоки</a>
-                        <a href="#" class="footer__link">Категориии</a>
-                        <a href="#" class="footer__link">Пользователи</a>
+                        <a href="/" class="footer__link">Публикации</a>
+                        <a href="/flows" class="footer__link">Потоки</a>
+                        <a href="/category" class="footer__link">Категориии</a>
+                        <a href="/users" class="footer__link">Пользователи</a>
                     </div>
                 </div>
                 <div class="footer__column">
@@ -130,7 +146,6 @@
                         Информация
                     </div>
                     <div class="footer__links">
-                        <a href="#" class="footer__link">Устройство сайта</a>
                         <a href="#" class="footer__link">Для авторов</a>
                         <a href="#" class="footer__link">Документации</a>
                         <a href="#" class="footer__link">Соглашение</a>
@@ -146,8 +161,10 @@
                     © Copyright LetsBlog
                 </div>
                 <div class="footer__nav">
-                    <a href="#" class="footer__nav-item">Home</a>
-                    <a href="#" class="footer__nav-item">Profile</a>
+                    <a href="/" class="footer__nav-item">Home</a>
+                    {% if current_user.is_authenticated %}
+                        <a href="/users/{{ current_user.nick }}" class="footer__nav-item">Profile</a>
+                    {% endif %}
                     <a href="#" class="footer__nav-item">About</a>
                 </div>
             </div>
