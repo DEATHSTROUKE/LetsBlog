@@ -479,3 +479,11 @@ body {
 .footer__nav-item:first-child {
     padding: 0;
 }
+
+/*##### Media #####*/
+
+@media screen and (min-width: 928px) {
+    html, body {
+        height: 100%;
+    }
+}

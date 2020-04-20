@@ -13,6 +13,7 @@ class Category(SqlAlchemyBase, UserMixin, SerializerMixin):
                    primary_key=True, autoincrement=True)
     title = sa.Column(sa.String, unique=True)
     flow = sa.Column(sa.Integer, sa.ForeignKey('flows.id'))
+    discription = sa.Column(sa.String)
     category_flow = orm.relation('Flow')
     article_category = orm.relation('ArticleCategory', back_populates='category1')
     sub_category = orm.relation('SubCategory', back_populates='category1')

@@ -33,3 +33,21 @@ textarea[name='tinymce'] {
     padding: 20px 0 20px 0;
 }
 
+
+.inp__label {
+    margin-bottom: -15px;
+}
+
+.categories {
+    padding: 20px;
+    font-size: 16px;
+    margin: 20px 0;
+    max-height: 200px;
+    background: #f1f1f1;
+    overflow: auto;
+}
+
+.checknux {
+    padding: 5px;
+}
+

@@ -1,0 +1,28 @@
+.main-content {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.page__title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #6F7577;
+    letter-spacing: 0.5px;
+    padding: 20px 0 40px 0;
+}
+
+
+.confirm__text {
+    padding: 0 0 30px 0;
+}
+
+.confirm__text pre {
+    white-space: pre-line;
+}
+
+.confirm__text {
+    font-size: 16px;
+    line-height: 1.7em;
+}

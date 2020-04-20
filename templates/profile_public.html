@@ -50,11 +50,11 @@
                     <div class="profile__column">
                         <div class="slider">
                             <div class="slider__item">
-                                <a href="/users/{{ current_user.nick }}" class="slider__link link__active">Профиль</a>
+                                <a href="/users/{{ current_user.nick }}" class="slider__link">Профиль</a>
                             </div>
                             {% if user.is_author %}
                                 <div class="slider__item">
-                                    <a href="/users/{{ current_user.nick }}/public" class="slider__link">Публикации</a>
+                                    <a href="/users/{{ current_user.nick }}/public" class="slider__link link__active">Публикации</a>
                                 </div>
                             {% endif %}
                             <div class="slider__item">

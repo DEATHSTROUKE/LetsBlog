@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block content %}
+    <link rel="stylesheet" href="/static/css/category.css">
+    <div class="container">
+        <div class="main-content">
+            <div class="category-column">
+                <div class="page__title wow fadeInUp">
+                    Категории
+                </div>
+                {% for i in flows %}
+                    <div class="flow__title wow fadeInUp">
+                        <a href="/flow/{{ i.id }}">{{ i.title }}</a>
+                    </div>
+                    <div class="category-row wow fadeInUp">
+                        {% for j in category %}
+                            {% if j.flow == i.id %}
+                                <div class="category">
+                                    <div class="category__row">
+                                        <div class="category__col">
+                                            <div class="category__title">
+                                                <a href="/category/{{ j.id }}">{{ j.title }}</a>
+                                            </div>
+                                            <div class="category__disc">
+                                                {{ j.discription }}
+                                            </div>
+                                        </div>
+                                        <div class="category__col">
+                                            <button class="category__btn subs">Подписан</button>
+                                            {# <button>Отписаться</button>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="sidebar">
+                <div class="sb__main wow fadeInUp">
+                    <div class="sb__title">
+                        Потоки
+                    </div>
+                    <div class="sb__block">
+                        <div class="sb__row">
+                            <div class="sb__label">
+                                <a href="#">Программирование</a>
+                            </div>
+                            <div class="sb__value">
+                                +20
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sb__block">
+                        <div class="sb__row">
+                            <div class="sb__label">
+                                <a href="#">Администрирование</a>
+                            </div>
+                            <div class="sb__value">
+                                +2
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sb__main wow fadeInUp">
+                    <div class="sb__title">
+                        Самое читаемое
+                    </div>
+                    <div class="sb__block">
+                        <div class="block__title">
+                            За сутки
+                        </div>
+                        <div class="art__column">
+                            <div class="art__row">
+                                <div class="art__title">
+                                    <a href="#">Приключения в мире программирования</a>
+                                </div>
+                                <div class="art__watch">
+                                    <i class="fa fa-eye"></i>
+                                    <span>100</span>
+                                </div>
+                            </div>
+                            <div class="art__row">
+                                <div class="art__title">
+                                    <a href="#">Очень странный программист</a>
+                                </div>
+                                <div class="art__watch">
+                                    <i class="fa fa-eye"></i>
+                                    <span>200</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sb__block">
+                        <div class="block__title">
+                            За неделю
+                        </div>
+                        <div class="art__column">
+                            <div class="art__row">
+                                <div class="art__title">
+                                    <a href="#">Приключения в мире программирования</a>
+                                </div>
+                                <div class="art__watch">
+                                    <i class="fa fa-eye"></i>
+                                    <span>100</span>
+                                </div>
+                            </div>
+                            <div class="art__row">
+                                <div class="art__title">
+                                    <a href="#">Очень странный программист</a>
+                                </div>
+                                <div class="art__watch">
+                                    <i class="fa fa-eye"></i>
+                                    <span>200</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/category.js"></script>
+{% endblock %}

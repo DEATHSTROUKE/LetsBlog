@@ -9,13 +9,27 @@
             <div class="inputs">
                 <input type="text" class="inp" name="title" placeholder="Заголовок">
                 <input type="text" class="inp" name="preview" placeholder="Ссылка на превью (картинка)">
+                <div class="inp__label">
+                    Выбрать поток
+                </div>
                 <select name="flow" class="inp">
                     {% for i in flows %}
                         <option value="{{ i.id }}">{{ i.title }}</option>
                     {% endfor %}
                 </select>
-                <textarea name="category" class="inp"
-                          placeholder="Введите категории для статьи (через запятую)"></textarea>
+                <div class="inp__label">
+                    Выбрать категории
+                </div>
+                <div class="categories">
+                    {% for i in category %}
+                        <div class="checknux">
+                            <label for="cats">
+                                <input type="checkbox" value="{{ i.id }}" name="cats">
+                                {{ i.title }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
                 <textarea name="tinymce" style="min-height: 400px"></textarea>
                 <input type="text" class="inp" name="tags" placeholder="Ключевые слова для поиска статьи">
                 <button type="submit" class="btn">Опубликовать</button>

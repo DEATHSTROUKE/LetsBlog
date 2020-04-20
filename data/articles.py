@@ -16,9 +16,9 @@ class Article(SqlAlchemyBase, UserMixin, SerializerMixin):
     author = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
     flow = sa.Column(sa.Integer, sa.ForeignKey('flows.id'))
     rate = sa.Column(sa.Integer)
+    preview = sa.Column(sa.String)
     user = orm.relation('User')
     art_flow = orm.relation('Flow')
     bookmark = orm.relation('Bookmark', back_populates='art')
     tag_article = orm.relation('TagArticle', back_populates='article1')
     article_category = orm.relation('ArticleCategory', back_populates='article1')
-

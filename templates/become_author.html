@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <link rel="stylesheet" href="/static/css/become_author.css">
+    <div class="container">
+        <div class="page__title">
+            Стань автором
+        </div>
+        <div class="confirm__text">
+            <pre>
+            Прежде чем разместить публикацию, необходимо еще раз ознакомиться с правилами сайта
+            1. Размещение полностью скопированного контента с других сайтов запрещено
+                2. На сайте крайне не приветствуются дискуссии на политические темы в любом их проявлении.
+                3. Запрещены любые оскорбления
+                4. Запрещен пиар и реклама продукции
+            </pre>
+        </div>
+        <form action="" method="post">
+            <button type="submit" class="confirm__btn">Подтвердить</button>
+        </form>
+    </div>
+{% endblock %}

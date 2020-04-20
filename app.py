@@ -49,6 +49,7 @@ def register():
         user.set_password(form.password.data)
         session.add(user)
         session.commit()
+        login_user(user)
         return redirect('/')
     return render_template('signup.html', form=form)
 
@@ -68,10 +69,10 @@ def login():
     return render_template('signin.html', form=form)
 
 
-# @app.route('/feed')
-# @login_required
-# def feed():
-#     pass
+@app.route('/feed')
+@login_required
+def feed():
+    return render('index.html')
 
 
 @app.route('/users/<nick>')
@@ -99,21 +100,6 @@ def prof_bookmarks(nick):
     if not user:
         return render('error_404.html')
     return render('profile_bookmarks.html', user=user)
-
-
-# @app.route('/users/<nick>/subscribers')
-# def prof_subs(nick):
-#     pass
-#
-#
-# @app.route('/users/<nick>/subscriptions')
-# def prof_subscriptions(nick):
-#     pass
-#
-#
-# @app.route('/users/<nick>/rate')
-# def prof_rate(nick):
-#     pass
 
 
 @app.route('/settings', methods=['GET', 'POST'])
@@ -163,24 +149,37 @@ def prof_settings():
 # @app.route('/article/<int:num>')
 # def article(num):
 #     pass
-#
-#
-# @app.route('/users')
-# def users():
-#     pass
-#
-#
-# @app.route('/category')
-# def categories():
-#     pass
-#
-#
-# @app.route('/category/<int:num>')
-# def category(num):
-#     pass
-#
+
+
+@app.route('/users')
+def users():
+    session = create_session()
+    users = session.query(User).filter(User.is_author == 1)
+    return render('users.html', users=users)
+
+
+@app.route('/category')
+def category():
+    session = create_session()
+    category = session.query(Category).all()
+    return render('category.html', category=category)
+
+
+@app.route('/category/<int:num>')
+def categories(num):
+    session = create_session()
+    category = session.query(Category).all()
+    return render('category.html', category=category)
+
+
 # @app.route('/flow/<int:num>')
 # def flow(num):
+#     pass
+
+
+# @app.route('/edit/<int:num>')
+# @login_required
+# def edit(num):
 #     pass
 
 
@@ -189,16 +188,27 @@ def prof_settings():
 def write():
     session = create_session()
     if request.method == 'GET':
-        return render('write.html')
+        if current_user.is_author:
+            category1 = session.query(Category).order_by(Category.flow).all()
+            return render('write.html', category=category1)
+        else:
+            return redirect('/become_author')
     elif request.method == 'POST':
-        print(request.args['tinymce'])
+        print(request.form)
+        print(request.data)
         return redirect('/')
 
 
-# @app.route('/edit/<int:num>')
-# @login_required
-# def edit(num):
-#     pass
+@app.route('/become_author', methods=['GET', 'POST'])
+@login_required
+def become_author():
+    session = create_session()
+    if request.method == 'GET':
+        return render('become_author.html')
+    else:
+        user = session.query(User).filter(User.id == current_user.id).update({'is_author': 1})
+        session.commit()
+        return redirect('/write')
 
 
 @app.route('/logout')
@@ -214,7 +224,7 @@ def not_found(e):
 
 
 @app.errorhandler(401)
-def not_found(e):
+def not_authorized(e):
     return redirect('/login')
 
 
