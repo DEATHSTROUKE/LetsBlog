@@ -24,7 +24,7 @@
                     {% for i in category %}
                         <div class="checknux">
                             <label for="cats">
-                                <input type="checkbox" value="{{ i.id }}" name="cats">
+                                <input type="checkbox" value="{{ i.id }}" name="cats-{{ i.id }}">
                                 {{ i.title }}
                             </label>
                         </div>

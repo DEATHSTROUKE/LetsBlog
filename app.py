@@ -194,9 +194,37 @@ def write():
         else:
             return redirect('/become_author')
     elif request.method == 'POST':
-        print(request.form)
-        print(request.data)
-        return redirect('/')
+        all_keys = list(request.form.items())
+        print(all_keys)
+        article = Article(
+            title=request.form['title'],
+            preview=request.form['preview'],
+            author=current_user.id,
+            flow=int(request.form['flow']),
+            text=request.form['tinymce']
+        )
+        session.add(article)
+        session.commit()
+        tags = request.form['tags'].split(', ')
+        for i in tags:
+            tag = Tag(title=i)
+            session.add(tag)
+            session.commit()
+            art_tag = TagArticle(
+                article=article.id,
+                tag=tag.id
+            )
+            session.add(art_tag)
+            session.commit()
+        for i in all_keys:
+            if 'cats' in i[0]:
+                art_cat = ArticleCategory(
+                    article=article.id,
+                    category=int(i[1])
+                )
+                session.add(art_cat)
+                session.commit()
+        return redirect(f'/users/{current_user.nick}/public')
 
 
 @app.route('/become_author', methods=['GET', 'POST'])
