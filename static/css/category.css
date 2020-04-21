@@ -57,13 +57,15 @@
 
 .category__btn {
     background: transparent;
-    color: white;
+    color: #B38D51;
     border: 1px solid #B38D51;
     padding: 10px 20px;
     border-radius: 20px;
     font-weight: 600;
     transition: all .2s ease;
     width: 120px;
+    display: flex;
+    justify-content: center;
 }
 
 .category__btn:hover {

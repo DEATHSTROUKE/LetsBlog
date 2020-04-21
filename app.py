@@ -5,6 +5,7 @@ from imports import *
 from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 from datetime import datetime
 import datetime
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ultra_secret_key'
@@ -182,15 +183,43 @@ def add_comment():
 @app.route('/users')
 def users():
     session = create_session()
-    users = session.query(User).filter(User.is_author == 1)
-    return render('users.html', users=users, title='Авторы')
+    users = session.query(User).filter(User.is_author == 1, User.id != current_user.id)
+    subs1 = session.query(SubPerson.author).filter(SubPerson.user == current_user.id).all()
+    subs = []
+    for i in subs1:
+        subs.append(i[0])
+    return render('users.html', users=users, title='Авторы', subs=subs)
+
+
+@app.route('/add_sub_person', methods=['POST'])
+def add_sub_person():
+    session = create_session()
+    data = json.loads(request.data)
+    data = int(data.split('=')[1])
+    sub = session.query(SubPerson) \
+        .filter(SubPerson.user == current_user.id, SubPerson.author == data).first()
+    if sub:
+        sub = session.query(SubPerson) \
+            .filter(SubPerson.user == current_user.id, SubPerson.author == data).delete()
+    else:
+        sub = SubPerson(
+            author=data,
+            user=current_user.id
+        )
+        session.add(sub)
+    session.commit()
+    return request.data
 
 
 @app.route('/category')
 def category():
     session = create_session()
     category = session.query(Category).all()
-    return render('category.html', category=category, title='Категории')
+    subs1 = session.query(SubCategory.category).filter(SubCategory.user == current_user.id).all()
+    subs = []
+    for i in subs1:
+        subs.append(i[0])
+    return render('category.html', category=category, title='Категории', subs=subs)
 
 
 @app.route('/category/<int:num>')
@@ -200,10 +229,29 @@ def categories(num):
     return render('category.html', category=category, title=f'{category.title}')
 
 
+@app.route('/add_sub_category', methods=['POST'])
+def add_sub_category():
+    session = create_session()
+    data = json.loads(request.data)
+    data = int(data.split('=')[1])
+    sub = session.query(SubCategory) \
+        .filter(SubCategory.user == current_user.id, SubCategory.category == data).first()
+    if sub:
+        sub = session.query(SubCategory) \
+            .filter(SubCategory.user == current_user.id, SubCategory.category == data).delete()
+    else:
+        sub = SubCategory(
+            category=data,
+            user=current_user.id
+        )
+        session.add(sub)
+    session.commit()
+    return request.data
+
+
 # @app.route('/flow/<int:num>')
 # def flow(num):
 #     pass
-
 
 @app.route('/edit/<int:num>', methods=['GET', 'POST'])
 @login_required

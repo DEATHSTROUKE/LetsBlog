@@ -25,8 +25,11 @@
                                             </div>
                                         </div>
                                         <div class="category__col">
-                                            <button class="category__btn subs">Подписан</button>
-                                            {# <button>Отписаться</button>#}
+                                            {% if j.id in subs %}
+                                                <button value="{{ j.id }}" class="category__btn subs">Подписан</button>
+                                            {% else %}
+                                                <button value="{{ j.id }}" class="category__btn">Подписаться</button>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
