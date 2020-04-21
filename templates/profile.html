@@ -7,13 +7,21 @@
             <div class="profile__main">
                 <div class="profile__row">
                     <div class="avatar">
-                        <img src="/static/img/avatars/{{ user.avatar }}" alt="" class="avatar__img">
+                        {% if user.avatar %}
+                            <img src="/static/img/avatars/{{ user.avatar }}" alt="" class="avatar__img">
+                        {% else %}
+                            <img src="/static/img/avatars/default1.png" alt="" class="avatar__img">
+                        {% endif %}
                     </div>
                     <div class="counters">
                         {% if user.is_author %}
                             <div class="counter">
                                 <div class="count count__green">
-                                    300
+                                    {% if user.rate %}
+                                        {{ user.rate }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
                                 </div>
                                 <div class="counter__title">
                                     Рейтинг
@@ -21,7 +29,7 @@
                             </div>
                             <div class="counter">
                                 <div class="count count__red">
-                                    200
+                                    {{ subscribed }}
                                 </div>
                                 <div class="counter__title">
                                     Подписчики
@@ -30,7 +38,7 @@
                         {% endif %}
                         <div class="counter">
                             <div class="count count__blue">
-                                20
+                                {{ subs }}
                             </div>
                             <div class="counter__title">
                                 Подписки
@@ -40,7 +48,12 @@
                 </div>
                 <div class="names">
                     <div class="name">
-                        {{ user.name }} {{ user.surname }}
+                        {% if user.name %}
+                            {{ user.name }}
+                        {% endif %}
+                        {% if user.surname %}
+                            {{ user.surname }}
+                        {% endif %}
                     </div>
                     <div class="nick">
                         @{{ user.nick }}
@@ -57,15 +70,19 @@
                                     <a href="/users/{{ current_user.nick }}/public" class="slider__link">Публикации</a>
                                 </div>
                             {% endif %}
-                            <div class="slider__item">
-                                <a href="/users/{{ current_user.nick }}/bookmarks" class="slider__link">Закладки</a>
-                            </div>
                         </div>
                         <div class="about">
                             <div class="about__title">
                                 О себе
                             </div>
-                            <div class="about__text">{{ user.info }}</div>
+                            <div class="about__text">
+                                {% if user.info %}
+                                    {{ user.info }}
+                                {% else %}
+                                    Наука - двигатель прогресса
+                                {% endif %}
+
+                            </div>
                         </div>
                     </div>
                     <div class="info">

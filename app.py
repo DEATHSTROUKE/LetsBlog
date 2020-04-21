@@ -129,7 +129,17 @@ def profile(nick):
     user = session.query(User).filter(User.nick == nick).first()
     if not user:
         return render('error_404.html')
-    return render('profile.html', user=user, title=f'{user.nick}')
+    subs1 = session.query(SubCategory) \
+        .filter(SubCategory.user == current_user.id).count()
+    subs2 = session.query(SubPerson) \
+        .filter(SubPerson.user == current_user.id).count()
+    subs = subs1 + subs2
+    if user.is_author:
+        subscribed = session.query(SubPerson) \
+            .filter(SubPerson.author == current_user.id).count()
+        return render('profile.html', user=user, title=f'{user.nick}', subs=subs, subscribed=subscribed)
+    else:
+        return render('profile.html', user=user, title=f'{user.nick}', subs=subs)
 
 
 @app.route('/users/<nick>/public')
@@ -138,16 +148,50 @@ def prof_public(nick):
     user = session.query(User).filter(User.nick == nick).first()
     if not user:
         return render('error_404.html')
-    return render('profile_public.html', user=user, title=f'{user.nick}')
+    subs1 = session.query(SubCategory) \
+        .filter(SubCategory.user == current_user.id).count()
+    subs2 = session.query(SubPerson) \
+        .filter(SubPerson.user == current_user.id).count()
+    subs = subs1 + subs2
+    if user.is_author:
+        subscribed = session.query(SubPerson) \
+            .filter(SubPerson.author == current_user.id).count()
+        art = session.query(Article.id) \
+            .filter(Article.author == current_user.id) \
+            .order_by(Article.id.desc()).all()
+        articles = []
+        for i in art:
+            article = session.query(Article).get(i)
+            cats = []
+            cat1 = session.query(ArticleCategory.category) \
+                .filter(ArticleCategory.article == article.id).all()
+            for j in cat1:
+                c1 = session.query(Category).filter(Category.id == j[0]).first()
+                cats.append(c1)
+
+            sl = {
+                'title': article.title,
+                'preview': article.preview,
+                'date_public': article.beauty_date(article.date_public),
+                'author': article.user,
+                'rate': article.rate if article.rate else 0,
+                'id': article.id,
+                'watches': article.watches,
+                'cats': cats,
+                'discription': article.discription if article.discription else ''
+            }
+            articles.append(sl)
+        return render('profile_public.html', user=user, title=f'{user.nick}', subs=subs, subscribed=subscribed,
+                      articles=articles)
 
 
-@app.route('/users/<nick>/bookmarks')
-def prof_bookmarks(nick):
-    session = create_session()
-    user = session.query(User).filter(User.nick == nick).first()
-    if not user:
-        return render('error_404.html')
-    return render('profile_bookmarks.html', user=user, title=f'{user.nick}')
+# @app.route('/users/<nick>/bookmarks')
+# def prof_bookmarks(nick):
+#     session = create_session()
+#     user = session.query(User).filter(User.nick == nick).first()
+#     if not user:
+#         return render('error_404.html')
+#     return render('profile_bookmarks.html', user=user, title=f'{user.nick}')
 
 
 @app.route('/settings', methods=['GET', 'POST'])
