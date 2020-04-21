@@ -103,36 +103,36 @@
                                             {{ i['discription'] }}
                                         </div>
                                         <div class="art__btns">
-                                            <div class="article__btn wow fadeInUp">
-                                                <a href="/edit_article/{{ i['id'] }}" class="article__link">Редактировать</a>
-                                            </div>
+{#                                            <div class="article__btn wow fadeInUp">#}
+{#                                                <a href="/edit_article/{{ i['id'] }}" class="article__link">Редактировать</a>#}
+{#                                            </div>#}
                                             <div class="article__btn wow fadeInUp">
                                                 <a href="/delete_article/{{ i['id'] }}"
                                                    class="article__link">Удалить</a>
                                             </div>
                                         </div>
 
-                                        <div class="article__stats wow fadeInUp">
-                                            <div class="stats__item">
-                                                <i class="fa fa-star"></i>
-                                                {% if i['rate'] > 0 %}
-                                                    <span>+{{ i['rate'] }}</span>
-                                                {% else %}
-                                                    <span>{{ i['rate'] }}</span>
-                                                {% endif %}
-                                            </div>
-                                            <div class="stats__item">
-                                                <i class="fa fa-eye"></i>
-                                                <span>{{ i['watches'] }}</span>
-                                            </div>
+{#                                        <div class="article__stats wow fadeInUp">#}
+{#                                            <div class="stats__item">#}
+{#                                                <i class="fa fa-star"></i>#}
+{#                                                {% if i['rate'] > 0 %}#}
+{#                                                    <span>+{{ i['rate'] }}</span>#}
+{#                                                {% else %}#}
+{#                                                    <span>{{ i['rate'] }}</span>#}
+{#                                                {% endif %}#}
+{#                                            </div>#}
+{#                                            <div class="stats__item">#}
+{#                                                <i class="fa fa-eye"></i>#}
+{#                                                <span>{{ i['watches'] }}</span>#}
+{#                                            </div>#}
                                             {#                            <div class="stats__item">#}
                                             {#                                <i class="fa fa-comment"></i>#}
                                             {#                                <span>15</span>#}
                                             {#                            </div>#}
-                                            <div class="stats__item">
-                                                <a href="#"><i class="fa fa-bookmark"></i></a>
-                                            </div>
-                                        </div>
+{#                                            <div class="stats__item">#}
+{#                                                <a href="#"><i class="fa fa-bookmark"></i></a>#}
+{#                                            </div>#}
+{#                                        </div>#}
                                     </div>
                                 </div>
                             {% endfor %}
