@@ -19,6 +19,13 @@
     border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
+    transition: al .2s ease;
+}
+
+.btn:hover {
+    background: #B38D51;
+    transition: al .2s ease;
+    color: white;
 }
 
 textarea[name='tinymce'] {

@@ -13,28 +13,40 @@
                             <div class="users">
                                 <div class="users__row">
                                     <div class="users__col">
-                                        <div class="users__title">
-                                            {{ i.name }} {{ i.surname }}
-                                            <a href="/users/{{ i.nick }}">@{{ i.nick }}</a>
-                                        </div>
-                                        <div class="users__disc">
-                                            {{ i.info }}
-                                        </div>
-                                    </div>
-                                    <div class="users_col">
-                                        {% if i.rate %}
-                                            Рейтинг: {{ i.rate }}
-                                        {% else %}
-                                            Рейтинг: 0
-                                        {% endif %}
+
                                     </div>
                                     <div class="users__col">
-                                        {% if i.id in subs %}
-                                            <button value="{{ i.id }}" class="users__btn subs">Подписан</button>
-                                        {% else %}
-                                            <button value="{{ i.id }}" class="users__btn">Подписаться</button>
+                                        <div class="users__title">
+                                            {% if i.name %}
+                                                {{ i.name }}
+                                            {% endif %}
+                                            {% if i.surname %}
+                                                {{ i.surname }}
+                                            {% endif %}
+                                            <a href="/users/{{ i.nick }}">@{{ i.nick }}</a>
+                                        </div>
+                                        {% if i.info %}
+                                            <div class="users__disc">
+                                                {{ i.info }}
+                                            </div>
                                         {% endif %}
                                     </div>
+                                    {#                                    <div class="users_col">#}
+                                    {#                                        {% if i.rate %}#}
+                                    {#                                            Рейтинг: {{ i.rate }}#}
+                                    {#                                        {% else %}#}
+                                    {#                                            Рейтинг: 0#}
+                                    {#                                        {% endif %}#}
+                                    {#                                    </div>#}
+                                    {% if current_user.is_authenticated %}
+                                        <div class="users__col">
+                                            {% if i.id in subs %}
+                                                <button value="{{ i.id }}" class="users__btn subs">Подписан</button>
+                                            {% else %}
+                                                <button value="{{ i.id }}" class="users__btn">Подписаться</button>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -58,61 +70,61 @@
                         </div>
                     {% endfor %}
                 </div>
-                <div class="sb__main wow fadeInUp">
-                    <div class="sb__title">
-                        Самое читаемое
-                    </div>
-                    <div class="sb__block">
-                        <div class="block__title">
-                            За сутки
-                        </div>
-                        <div class="art__column">
-                            <div class="art__row">
-                                <div class="art__title">
-                                    <a href="#">Приключения в мире программирования</a>
-                                </div>
-                                <div class="art__watch">
-                                    <i class="fa fa-eye"></i>
-                                    <span>100</span>
-                                </div>
-                            </div>
-                            <div class="art__row">
-                                <div class="art__title">
-                                    <a href="#">Очень странный программист</a>
-                                </div>
-                                <div class="art__watch">
-                                    <i class="fa fa-eye"></i>
-                                    <span>200</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sb__block">
-                        <div class="block__title">
-                            За неделю
-                        </div>
-                        <div class="art__column">
-                            <div class="art__row">
-                                <div class="art__title">
-                                    <a href="#">Приключения в мире программирования</a>
-                                </div>
-                                <div class="art__watch">
-                                    <i class="fa fa-eye"></i>
-                                    <span>100</span>
-                                </div>
-                            </div>
-                            <div class="art__row">
-                                <div class="art__title">
-                                    <a href="#">Очень странный программист</a>
-                                </div>
-                                <div class="art__watch">
-                                    <i class="fa fa-eye"></i>
-                                    <span>200</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {#                <div class="sb__main wow fadeInUp">#}
+                {#                    <div class="sb__title">#}
+                {#                        Самое читаемое#}
+                {#                    </div>#}
+                {#                    <div class="sb__block">#}
+                {#                        <div class="block__title">#}
+                {#                            За сутки#}
+                {#                        </div>#}
+                {#                        <div class="art__column">#}
+                {#                            <div class="art__row">#}
+                {#                                <div class="art__title">#}
+                {#                                    <a href="#">Приключения в мире программирования</a>#}
+                {#                                </div>#}
+                {#                                <div class="art__watch">#}
+                {#                                    <i class="fa fa-eye"></i>#}
+                {#                                    <span>100</span>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                            <div class="art__row">#}
+                {#                                <div class="art__title">#}
+                {#                                    <a href="#">Очень странный программист</a>#}
+                {#                                </div>#}
+                {#                                <div class="art__watch">#}
+                {#                                    <i class="fa fa-eye"></i>#}
+                {#                                    <span>200</span>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                    <div class="sb__block">#}
+                {#                        <div class="block__title">#}
+                {#                            За неделю#}
+                {#                        </div>#}
+                {#                        <div class="art__column">#}
+                {#                            <div class="art__row">#}
+                {#                                <div class="art__title">#}
+                {#                                    <a href="#">Приключения в мире программирования</a>#}
+                {#                                </div>#}
+                {#                                <div class="art__watch">#}
+                {#                                    <i class="fa fa-eye"></i>#}
+                {#                                    <span>100</span>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                            <div class="art__row">#}
+                {#                                <div class="art__title">#}
+                {#                                    <a href="#">Очень странный программист</a>#}
+                {#                                </div>#}
+                {#                                <div class="art__watch">#}
+                {#                                    <i class="fa fa-eye"></i>#}
+                {#                                    <span>200</span>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
             </div>
         </div>
     </div>

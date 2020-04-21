@@ -102,9 +102,16 @@
                                         <div class="article__text  wow fadeInUp">
                                             {{ i['discription'] }}
                                         </div>
-                                        <div class="article__btn wow fadeInUp">
-                                            <a href="/article/{{ i['id'] }}" class="article__link">Читать дальше</a>
+                                        <div class="art__btns">
+                                            <div class="article__btn wow fadeInUp">
+                                                <a href="/edit_article/{{ i['id'] }}" class="article__link">Редактировать</a>
+                                            </div>
+                                            <div class="article__btn wow fadeInUp">
+                                                <a href="/delete_article/{{ i['id'] }}"
+                                                   class="article__link">Удалить</a>
+                                            </div>
                                         </div>
+
                                         <div class="article__stats wow fadeInUp">
                                             <div class="stats__item">
                                                 <i class="fa fa-star"></i>

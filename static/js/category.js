@@ -18,17 +18,23 @@ for (let i = 0; i < cat_btn.length; i++) {
     });
 }
 
-function change_text(btn) {
-    if (btn.innerHTML === 'Подписаться') {
-        btn.innerHTML = 'Подписан';
-        btn.addEventListener('mouseover', () => {
-            btn.innerHTML = 'Отписаться';
+function change_text(btn1) {
+    if (btn1.innerHTML === 'Подписаться') {
+        btn1.innerHTML = 'Подписан';
+        btn1.addEventListener('mouseover', () => {
+            btn1.innerHTML = 'Отписаться';
         });
-        btn.addEventListener('mouseout', () => {
-            btn.innerHTML = 'Подписан';
+        btn1.addEventListener('mouseout', () => {
+            btn1.innerHTML = 'Подписан';
         });
     } else {
-        btn.innerHTML = 'Подписаться'
+        btn1.removeEventListener('mouseover', () => {
+            btn1.innerHTML = 'Отписаться';
+        });
+        btn1.removeEventListener('mouseout', () => {
+            btn1.innerHTML = 'Подписан';
+        });
+        btn1.innerHTML = 'Подписаться'
     }
 }
 

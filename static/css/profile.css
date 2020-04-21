@@ -287,12 +287,17 @@
     padding: 20px 0 25px;
 }
 
+.art__btns {
+    display: flex;
+}
+
 .article__btn {
     border: 1px solid #B38D51;
     padding: 15px 20px;
     border-radius: 20px;
     transition: all .2s ease;
     width: max-content;
+    margin: 0 20px 0 0;
 }
 
 .article__link {

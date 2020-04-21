@@ -6,6 +6,7 @@ from flask_login import LoginManager, login_user, current_user, login_required, 
 from datetime import datetime
 import datetime
 import json
+from api_users import blueprint
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ultra_secret_key'
@@ -299,12 +300,16 @@ def add_comment():
 @app.route('/users')
 def users():
     session = create_session()
-    users = session.query(User).filter(User.is_author == 1, User.id != current_user.id)
-    subs1 = session.query(SubPerson.author).filter(SubPerson.user == current_user.id).all()
-    subs = []
-    for i in subs1:
-        subs.append(i[0])
-    return render('users.html', users=users, title='Авторы', subs=subs)
+    if current_user.is_authenticated:
+        users = session.query(User).filter(User.is_author == 1, User.id != current_user.id)
+        subs1 = session.query(SubPerson.author).filter(SubPerson.user == current_user.id).all()
+        subs = []
+        for i in subs1:
+            subs.append(i[0])
+        return render('users.html', users=users, title='Авторы', subs=subs)
+    else:
+        users = session.query(User).all()
+        return render('users.html', users=users, title='Авторы')
 
 
 @app.route('/add_sub_person', methods=['POST'])
@@ -331,11 +336,14 @@ def add_sub_person():
 def category():
     session = create_session()
     category = session.query(Category).all()
-    subs1 = session.query(SubCategory.category).filter(SubCategory.user == current_user.id).all()
-    subs = []
-    for i in subs1:
-        subs.append(i[0])
-    return render('category.html', category=category, title='Категории', subs=subs)
+    if current_user.is_authenticated:
+        subs1 = session.query(SubCategory.category).filter(SubCategory.user == current_user.id).all()
+        subs = []
+        for i in subs1:
+            subs.append(i[0])
+        return render('category.html', category=category, title='Категории', subs=subs)
+    else:
+        return render('category.html', category=category, title='Категории')
 
 
 @app.route('/category/<int:num>')
@@ -401,7 +409,7 @@ def add_watch():
     return ''
 
 
-@app.route('/edit/<int:num>', methods=['GET', 'POST'])
+@app.route('/edit_article/<int:num>', methods=['GET', 'POST'])
 @login_required
 def edit(num):
     session = create_session()
@@ -456,6 +464,16 @@ def write():
         return redirect(f'/users/{current_user.nick}/public')
 
 
+@app.route('/delete_article/<int:num>')
+def delete_article(num):
+    session = create_session()
+    art = session.query(Article.author).filter(Article.id == num).first()
+    if art[0] == current_user.id:
+        session.query(Article).filter(Article.id == num).delete()
+        session.commit()
+    return redirect(f'/users/{current_user.nick}/public')
+
+
 @app.route('/become_author', methods=['GET', 'POST'])
 @login_required
 def become_author():
@@ -486,4 +504,5 @@ def not_authorized(e):
 
 
 if __name__ == '__main__':
+    app.register_blueprint(blueprint)
     app.run(host='127.0.0.1', port=8900)
