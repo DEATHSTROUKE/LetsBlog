@@ -131,3 +131,10 @@ body {
 .form__text {
     text-align: center;
 }
+
+.message {
+    padding: 10px 0;
+    font-size: 16px;
+    color: #ff3e00;
+    font-weight: bold;
+}

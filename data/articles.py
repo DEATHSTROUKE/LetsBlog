@@ -17,8 +17,22 @@ class Article(SqlAlchemyBase, UserMixin, SerializerMixin):
     flow = sa.Column(sa.Integer, sa.ForeignKey('flows.id'))
     rate = sa.Column(sa.Integer)
     preview = sa.Column(sa.String)
+    date_public = sa.Column(sa.DateTime, default=datetime.now)
+    watches = sa.Column(sa.Integer, default=0)
     user = orm.relation('User')
     art_flow = orm.relation('Flow')
     bookmark = orm.relation('Bookmark', back_populates='art')
     tag_article = orm.relation('TagArticle', back_populates='article1')
     article_category = orm.relation('ArticleCategory', back_populates='article1')
+
+    def beauty_date(self, date):
+        date = str(date).split()
+        if len(date) == 2:
+            d = date[0].split('-')
+            t = date[1].split(':')
+            a = f'{d[2]}.{d[1]}.{d[0]}, {t[0]}:{t[1]}'
+            return a
+        else:
+            d = date[0].split('-')
+            a = f'{d[2]}.{d[1]}.{d[0]}'
+            return a

@@ -40,26 +40,17 @@
                     <div class="sb__title">
                         Потоки
                     </div>
-                    <div class="sb__block">
-                        <div class="sb__row">
-                            <div class="sb__label">
-                                <a href="#">Программирование</a>
-                            </div>
-                            <div class="sb__value">
-                                +20
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sb__block">
-                        <div class="sb__row">
-                            <div class="sb__label">
-                                <a href="#">Администрирование</a>
-                            </div>
-                            <div class="sb__value">
-                                +2
+                    {% for i in flows %}
+                        <div class="sb__block">
+                            <div class="sb__row">
+                                <div class="sb__label">
+                                    <a href="/flow/{{ i.id }}">{{ i.title }}</a>
+                                </div>
+                                <div class="sb__value">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <div class="sb__main wow fadeInUp">
                     <div class="sb__title">

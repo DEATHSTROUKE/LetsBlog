@@ -26,10 +26,31 @@ def render(template, **kwargs):
 
 
 @app.route('/')
-@app.route('/flow')
 def default():
     session = create_session()
-    return render('index.html')
+    art = session.query(Article.id).order_by(Article.id.desc()).all()
+    articles = []
+    for i in art:
+        article = session.query(Article).get(i)
+        cats = []
+        cat1 = session.query(ArticleCategory.category) \
+            .filter(ArticleCategory.article == article.id).all()
+        for j in cat1:
+            c1 = session.query(Category).filter(Category.id == j[0]).first()
+            cats.append(c1)
+
+        sl = {
+            'title': article.title,
+            'preview': article.preview,
+            'date_public': article.beauty_date(article.date_public),
+            'author': article.user,
+            'rate': article.rate if article.rate else 0,
+            'id': article.id,
+            'watches': article.watches,
+            'cats': cats
+        }
+        articles.append(sl)
+    return render('index.html', title='Все потоки', articles=articles)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -72,7 +93,7 @@ def login():
 @app.route('/feed')
 @login_required
 def feed():
-    return render('index.html')
+    return render('index.html', title='Моя лента')
 
 
 @app.route('/users/<nick>')
@@ -81,7 +102,7 @@ def profile(nick):
     user = session.query(User).filter(User.nick == nick).first()
     if not user:
         return render('error_404.html')
-    return render('profile.html', user=user)
+    return render('profile.html', user=user, title=f'{user.nick}')
 
 
 @app.route('/users/<nick>/public')
@@ -90,7 +111,7 @@ def prof_public(nick):
     user = session.query(User).filter(User.nick == nick).first()
     if not user:
         return render('error_404.html')
-    return render('profile_public.html', user=user)
+    return render('profile_public.html', user=user, title=f'{user.nick}')
 
 
 @app.route('/users/<nick>/bookmarks')
@@ -99,7 +120,7 @@ def prof_bookmarks(nick):
     user = session.query(User).filter(User.nick == nick).first()
     if not user:
         return render('error_404.html')
-    return render('profile_bookmarks.html', user=user)
+    return render('profile_bookmarks.html', user=user, title=f'{user.nick}')
 
 
 @app.route('/settings', methods=['GET', 'POST'])
@@ -115,7 +136,7 @@ def prof_settings():
             work=current_user.work if current_user.work else '',
             date_born=current_user.date_born if current_user.date_born else ''
         )
-        return render('settings.html', user=user)
+        return render('settings.html', user=user, title='Пользовательские настройки')
     elif request.method == 'POST':
         a = request.form['born'].split('-')
         date1 = datetime.date(int(a[0]), int(a[1]), int(a[2]))
@@ -146,30 +167,37 @@ def prof_settings():
         return redirect(f'/users/{current_user.nick}')
 
 
-# @app.route('/article/<int:num>')
-# def article(num):
-#     pass
+@app.route('/article/<int:num>')
+def article(num):
+    session = create_session()
+    article = session.query(Article).filter(Article.id == num).first()
+    return render('article.html', title=article.title, article=article)
+
+
+@app.route('/add_comment', methods=['POST'])
+def add_comment():
+    return ''
 
 
 @app.route('/users')
 def users():
     session = create_session()
     users = session.query(User).filter(User.is_author == 1)
-    return render('users.html', users=users)
+    return render('users.html', users=users, title='Авторы')
 
 
 @app.route('/category')
 def category():
     session = create_session()
     category = session.query(Category).all()
-    return render('category.html', category=category)
+    return render('category.html', category=category, title='Категории')
 
 
 @app.route('/category/<int:num>')
 def categories(num):
     session = create_session()
     category = session.query(Category).all()
-    return render('category.html', category=category)
+    return render('category.html', category=category, title=f'{category.title}')
 
 
 # @app.route('/flow/<int:num>')
@@ -177,10 +205,15 @@ def categories(num):
 #     pass
 
 
-# @app.route('/edit/<int:num>')
-# @login_required
-# def edit(num):
-#     pass
+@app.route('/edit/<int:num>', methods=['GET', 'POST'])
+@login_required
+def edit(num):
+    session = create_session()
+    if request.method == 'GET':
+        article = session.query(Article).filter(Article.id == num).first()
+        return render('edit.html', article=article, title='Редактирование')
+    elif request.method == 'POST':
+        return redirect(f'/users/{current_user.nick}/public')
 
 
 @app.route('/write', methods=['GET', 'POST'])
@@ -190,12 +223,11 @@ def write():
     if request.method == 'GET':
         if current_user.is_author:
             category1 = session.query(Category).order_by(Category.flow).all()
-            return render('write.html', category=category1)
+            return render('write.html', category=category1, title='Написание статьи')
         else:
             return redirect('/become_author')
     elif request.method == 'POST':
         all_keys = list(request.form.items())
-        print(all_keys)
         article = Article(
             title=request.form['title'],
             preview=request.form['preview'],
@@ -232,7 +264,7 @@ def write():
 def become_author():
     session = create_session()
     if request.method == 'GET':
-        return render('become_author.html')
+        return render('become_author.html', title='Стань автором')
     else:
         user = session.query(User).filter(User.id == current_user.id).update({'is_author': 1})
         session.commit()

@@ -443,8 +443,8 @@ body {
 }
 
 .footer__hr {
-    height: .5px;
-    background-color: dimgrey;
+    height: .6px;
+    background-color: dimgray;
     border: none;
     margin: 0;
     width: 100%;
@@ -482,7 +482,7 @@ body {
 
 /*##### Media #####*/
 
-@media screen and (min-width: 928px) {
+@media screen and (max-width: 800px) {
     html, body {
         height: 100%;
     }
