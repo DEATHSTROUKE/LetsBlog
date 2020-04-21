@@ -24,14 +24,10 @@
                         </div>
                         <img src="{{ article.preview }}" alt="" class="article__img  wow fadeInUp">
                         <div class="article__text  wow fadeInUp">
-                            {#                                <p>Таким образом, сложившаяся структура организации требует определения и уточнения#}
-                            {#                                    новых предложений. А ещё сделанные на базе интернет-аналитики выводы описаны#}
-                            {#                                    максимально подробно. Принимая во внимание показатели успешности, укрепление и#}
-                            {#                                    развитие внутренней структуры, а также свежий взгляд на привычные вещи - безусловно#}
-                            {#                                    открывает новые горизонты для анализа существующих паттернов поведения.</p>#}
+                            {{ article.discription }}
                         </div>
-                        <div class="article__main-text">
-                            {{ article.text }}
+                        <div class="article__main-text wow fadeInUp">
+                            {{ article.text | safe }}
                         </div>
                         <div class="article__stats wow fadeInUp">
                             <div class="stats__item">
@@ -138,5 +134,5 @@
             </div>
         </div>
     </div>
-    <script src="/static/js/article.js"></script>
+    {#    <script src="/static/js/article.js"></script>#}
 {% endblock %}

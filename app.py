@@ -55,6 +55,37 @@ def default():
     return render('index.html', title='Все потоки', articles=articles)
 
 
+@app.route('/flow/<int:num>')
+def flow(num):
+    session = create_session()
+    flow = session.query(Flow).get(num)
+    art = session.query(Article.id).filter(Article.flow == num) \
+        .order_by(Article.id.desc()).all()
+    articles = []
+    for i in art:
+        article = session.query(Article).get(i)
+        cats = []
+        cat1 = session.query(ArticleCategory.category) \
+            .filter(ArticleCategory.article == article.id).all()
+        for j in cat1:
+            c1 = session.query(Category).filter(Category.id == j[0]).first()
+            cats.append(c1)
+
+        sl = {
+            'title': article.title,
+            'preview': article.preview,
+            'date_public': article.beauty_date(article.date_public),
+            'author': article.user,
+            'rate': article.rate if article.rate else 0,
+            'id': article.id,
+            'watches': article.watches,
+            'cats': cats,
+            'discription': article.discription if article.discription else ''
+        }
+        articles.append(sl)
+    return render('index.html', title=f'{flow.title}', articles=articles)
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
@@ -90,12 +121,6 @@ def login():
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('signin.html', form=form)
-
-
-@app.route('/feed')
-@login_required
-def feed():
-    return render('index.html', title='Моя лента')
 
 
 @app.route('/users/<nick>')
@@ -169,6 +194,22 @@ def prof_settings():
         return redirect(f'/users/{current_user.nick}')
 
 
+@app.route('/feed')
+@login_required
+def feed():
+    session = create_session()
+    authors1 = session.query(SubPerson.author).filter(SubPerson.user == current_user.id).all()
+    authors = []
+    for i in authors1:
+        authors.append(i[0])
+    cats1 = session.query(SubCategory.category).filter(SubCategory.user == current_user.id).all()
+    cats = []
+    for i in cats1:
+        authors.append(i[0])
+
+    return render('index.html', title='Моя лента')
+
+
 @app.route('/article/<int:num>')
 def article(num):
     session = create_session()
@@ -226,8 +267,39 @@ def category():
 @app.route('/category/<int:num>')
 def categories(num):
     session = create_session()
-    category = session.query(Category).all()
-    return render('category.html', category=category, title=f'{category.title}')
+    category = session.query(Category).get(num)
+    art_cat1 = session.query(ArticleCategory.article) \
+        .filter(ArticleCategory.category == num).all()
+    art_cat = []
+    print(art_cat1)
+    for i in art_cat1:
+        art_cat.append(i[0])
+    print(art_cat)
+    art = session.query(Article.id).filter(Article.id.in_(art_cat)) \
+        .order_by(Article.id.desc()).all()
+    articles = []
+    for i in art:
+        article = session.query(Article).get(i)
+        cats = []
+        cat1 = session.query(ArticleCategory.category) \
+            .filter(ArticleCategory.article == article.id).all()
+        for j in cat1:
+            c1 = session.query(Category).filter(Category.id == j[0]).first()
+            cats.append(c1)
+
+        sl = {
+            'title': article.title,
+            'preview': article.preview,
+            'date_public': article.beauty_date(article.date_public),
+            'author': article.user,
+            'rate': article.rate if article.rate else 0,
+            'id': article.id,
+            'watches': article.watches,
+            'cats': cats,
+            'discription': article.discription if article.discription else ''
+        }
+        articles.append(sl)
+    return render('index.html', title=f'{category.title}', articles=articles)
 
 
 @app.route('/add_sub_category', methods=['POST'])
@@ -254,10 +326,6 @@ def add_sub_category():
 def add_watch():
     return ''
 
-
-# @app.route('/flow/<int:num>')
-# def flow(num):
-#     pass
 
 @app.route('/edit/<int:num>', methods=['GET', 'POST'])
 @login_required

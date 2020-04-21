@@ -372,4 +372,10 @@ ol {
     padding: 0 0 0 30px;
 }
 
+.article__main-text {
+    max-width: 100%;
+    word-break: break-word;
+}
+
+
 
