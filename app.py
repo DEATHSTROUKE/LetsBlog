@@ -48,7 +48,8 @@ def default():
             'rate': article.rate if article.rate else 0,
             'id': article.id,
             'watches': article.watches,
-            'cats': cats
+            'cats': cats,
+            'discription': article.discription if article.discription else ''
         }
         articles.append(sl)
     return render('index.html', title='Все потоки', articles=articles)
@@ -249,6 +250,11 @@ def add_sub_category():
     return request.data
 
 
+@app.route('/add_watch', methods=['POST'])
+def add_watch():
+    return ''
+
+
 # @app.route('/flow/<int:num>')
 # def flow(num):
 #     pass
@@ -281,7 +287,8 @@ def write():
             preview=request.form['preview'],
             author=current_user.id,
             flow=int(request.form['flow']),
-            text=request.form['tinymce']
+            text=request.form['tinymce'],
+            discription=request.form['disc']
         )
         session.add(article)
         session.commit()

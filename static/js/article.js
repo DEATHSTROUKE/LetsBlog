@@ -4,8 +4,11 @@ console.log(text1);
 text.innerHTML = text1;
 
 window.onload = function () {
-    ajax('post', '/add_sub_person', JSON.stringify('value=' + cat_btn[i].value), handler);
+    ajax('post', '/add_watch', JSON.stringify('value=' + cat_btn[i].value), handler);
 };
+
+var thumb_up = document.querySelector('.thumb_up');
+var thumb_down = document.querySelector('.thumb_down');
 
 
 function ajax(method, url, data, callback) {

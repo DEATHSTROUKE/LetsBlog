@@ -177,11 +177,18 @@
     padding: 0 40px 0 0;
 }
 
-.stats__item a {
-    transition: all .2s ease;
+.stats__item button {
+    background: transparent;
+    border: none;
 }
 
-.stats__item a:hover {
+.stats__item i {
+    transition: all .2s ease;
+    color: #6F7577;
+    font-size: 16px;
+}
+
+.stats__item i:hover {
     color: #B38D51;
     transition: all .2s ease;
 }

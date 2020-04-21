@@ -13,6 +13,7 @@ class Article(SqlAlchemyBase, UserMixin, SerializerMixin):
                    primary_key=True, autoincrement=True)
     title = sa.Column(sa.String)
     text = sa.Column(sa.String)
+    discription = sa.Column(sa.String)
     author = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
     flow = sa.Column(sa.Integer, sa.ForeignKey('flows.id'))
     rate = sa.Column(sa.Integer)
