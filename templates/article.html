@@ -23,9 +23,11 @@
                             <a href="/article/{{ article.id }}">{{ article.title }}</a>
                         </div>
                         <img src="{{ article.preview }}" alt="" class="article__img  wow fadeInUp">
-                        <div class="article__text  wow fadeInUp">
-                            {{ article.discription }}
-                        </div>
+                        {% if article.discription %}
+                            <div class="article__text  wow fadeInUp">
+                                {{ article.discription }}
+                            </div>
+                        {% endif %}
                         <div class="article__main-text wow fadeInUp">
                             {{ article.text | safe }}
                         </div>

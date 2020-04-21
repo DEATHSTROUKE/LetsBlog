@@ -205,9 +205,39 @@ def feed():
     cats1 = session.query(SubCategory.category).filter(SubCategory.user == current_user.id).all()
     cats = []
     for i in cats1:
-        authors.append(i[0])
+        cats.append(i[0])
+    art = session.query(Article.id).order_by(Article.id.desc()).all()
+    articles = []
+    for i in art:
+        article = session.query(Article).get(i)
+        if article.author not in authors or article.author == current_user.id:
+            a = session.query(ArticleCategory.category) \
+                .filter(ArticleCategory.article == article.id).all()
+            for j in a:
+                if j[0] in cats:
+                    break
+            else:
+                continue
+        cats = []
+        cat1 = session.query(ArticleCategory.category) \
+            .filter(ArticleCategory.article == article.id).all()
+        for j in cat1:
+            c1 = session.query(Category).filter(Category.id == j[0]).first()
+            cats.append(c1)
 
-    return render('index.html', title='Моя лента')
+        sl = {
+            'title': article.title,
+            'preview': article.preview,
+            'date_public': article.beauty_date(article.date_public),
+            'author': article.user,
+            'rate': article.rate if article.rate else 0,
+            'id': article.id,
+            'watches': article.watches,
+            'cats': cats,
+            'discription': article.discription if article.discription else ''
+        }
+        articles.append(sl)
+    return render('index.html', title='Моя лента', articles=articles)
 
 
 @app.route('/article/<int:num>')
